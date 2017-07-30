@@ -32,4 +32,9 @@ public class Sum implements Expr {
 	public boolean isMult() {
 		return false;
 	}
+
+	@Override
+	public boolean isSubtraction() {
+		return false;
+	}
 }

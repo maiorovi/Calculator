@@ -27,4 +27,16 @@ public class CalculationEngineIntegrationTest {
 	public void calculatesCorrectlyExpressionWithPrecedence() throws Exception {
 		assertThat(calculationEngine.calculate("3 + 5*3")).isEqualTo(18);
 	}
+
+	@Test
+	public void calculatesCorrectlyExpressionWithPrecedenceAndSubtraction() throws Exception {
+		assertThat(calculationEngine.calculate("3 - 15 + 5*3")).isEqualTo(3);
+		assertThat(calculationEngine.calculate("3 + 5*3 - 15")).isEqualTo(3);
+		assertThat(calculationEngine.calculate("3 + 5*3 - 15 - 11")).isEqualTo(-8);
+	}
+
+	@Test
+	public void calculatesCorrectlyBigExression() throws Exception {
+		assertThat(calculationEngine.calculate("5*6 + 3 - 15 - 5*4 + 32")).isEqualTo(30);
+	}
 }

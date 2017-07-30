@@ -37,8 +37,8 @@ public class ExpressionTreeBuilder {
     private void createTreeFromOperators(LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
         OperatorFactory operatorFactory = new OperatorFactory();
         while (!operatorStack.isEmpty()) {
-            Expr ex1 = valueStack.pop();
             Expr ex2 = valueStack.pop();
+            Expr ex1 = valueStack.pop();
 
             Expr createdOp = operatorFactory.createOperator(ex1, ex2, operatorStack.pop());
             valueStack.push(createdOp);

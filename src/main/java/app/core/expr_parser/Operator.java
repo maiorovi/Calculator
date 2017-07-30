@@ -56,6 +56,10 @@ public enum Operator {
 		return PLUS.representation.equals(token.getToken());
 	}
 
+	public static boolean isMinus(Token token) {
+		return MINUS.representation.equals(token.getToken());
+	}
+
 	public static boolean isMultiplication(Token token) {
 		return MULTIPLY.representation.equals(token.getToken());
 	}

@@ -33,5 +33,10 @@ public class Mult implements Expr {
 	public boolean isMult() {
 		return true;
 	}
+
+	@Override
+	public boolean isSubtraction() {
+		return false;
+	}
 }
 

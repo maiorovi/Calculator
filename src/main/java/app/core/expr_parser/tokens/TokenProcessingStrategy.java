@@ -33,8 +33,8 @@ public enum TokenProcessingStrategy implements TokenProcessor {
         @Override
         public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
             while(!operatorStack.isEmpty() && Operator.fromToken(operatorStack.peek()).getPrecedence() >= Operator.fromToken(token).getPrecedence()) {
-                Expr ex1 = valueStack.pop();
                 Expr ex2 = valueStack.pop();
+                Expr ex1 = valueStack.pop();
 
                 Expr createdOp = operatorFactory.createOperator(ex1, ex2, operatorStack.pop());
                 valueStack.push(createdOp);
