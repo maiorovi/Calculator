@@ -21,4 +21,11 @@ public class ExpressionTokenizerTest {
 				.extracting("token")
 				.containsExactly("2", "*", "(", "3234", "+", "5", ")","/", "12");
 	}
+
+	@Test
+	public void tokenizesExpressionWithNegativeNumberCorrectly() throws Exception {
+		assertThat(tokenizer.tokenize("2* (3234 + 5) / -12"))
+				.extracting("token")
+				.containsExactly("2", "*", "(", "3234", "+", "5", ")","/", "-12");
+	}
 }

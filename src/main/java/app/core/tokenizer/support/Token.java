@@ -31,7 +31,11 @@ public final class Token {
 	}
 
 	public boolean isNumber() {
-		return StringUtils.isNumeric(token);
+		return StringUtils.isNumeric(token) || isNegativeNumeric(token);
+	}
+
+	private boolean isNegativeNumeric(String value) {
+		return value.charAt(0) == '-' && StringUtils.isNumeric(value.substring(1));
 	}
 
 	public boolean isLeftParentheses() {

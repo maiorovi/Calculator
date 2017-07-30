@@ -46,4 +46,12 @@ public class CalculationEngineIntegrationTest {
 		assertThat(calculationEngine.calculate("8 / 4 * 5")).isEqualTo(10);
 		assertThat(calculationEngine.calculate(" 5 * 3 - 10 / 2 + 7")).isEqualTo(17);
 	}
+
+	@Test
+	public void canWorkWithNegativeNumbers() throws Exception {
+		assertThat(calculationEngine.calculate("8 / -4")).isEqualTo(-2);
+		assertThat(calculationEngine.calculate("-8 / -4")).isEqualTo(2);
+		assertThat(calculationEngine.calculate("8 / 4 * -5")).isEqualTo(-10);
+		assertThat(calculationEngine.calculate(" 5 * 3 - 10 / -2 + 7")).isEqualTo(27);
+	}
 }
