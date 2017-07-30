@@ -32,4 +32,19 @@ public class Numb implements Expr {
 				"value=" + value +
 				'}';
 	}
+
+	@Override
+	public boolean isNumb() {
+		return true;
+	}
+
+	@Override
+	public boolean isSum() {
+		return false;
+	}
+
+	@Override
+	public boolean isMult() {
+		return false;
+	}
 }

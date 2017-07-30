@@ -12,7 +12,7 @@ public class ExpressionProcessorTest {
 	public void evaluatesSimpleNumberExpression() throws Exception {
 		Numb numb = new Numb(6);
 
-		assertThat(expressionProcessor.eval(numb)).isEqualTo(6);
+		assertThat(expressionProcessor.eval1(numb)).isEqualTo(6);
 	}
 
 	@Test
@@ -22,6 +22,6 @@ public class ExpressionProcessorTest {
 
 		Sum sum = new Sum(numb1, numb2);
 
-		assertThat(expressionProcessor.eval(sum)).isEqualTo(18);
+		assertThat(expressionProcessor.eval1(sum)).isEqualTo(18);
 	}
 }

@@ -24,7 +24,7 @@ public class CalculationEngine {
 		List<Token> tokens = expressionTokenizer.tokenize(expr);
 		Expr expressionTree = expressionTreeBuilder.build(tokens);
 
-		return expressionProcessor.eval(expressionTree);
+		return expressionProcessor.eval1(expressionTree);
 	}
 
 

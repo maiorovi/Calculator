@@ -17,4 +17,19 @@ public class Sum implements Expr {
 	public Expr getEx2() {
 		return ex2;
 	}
+
+	@Override
+	public boolean isNumb() {
+		return false;
+	}
+
+	@Override
+	public boolean isSum() {
+		return true;
+	}
+
+	@Override
+	public boolean isMult() {
+		return false;
+	}
 }
