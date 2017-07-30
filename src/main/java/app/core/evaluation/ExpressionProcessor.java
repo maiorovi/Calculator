@@ -1,6 +1,5 @@
 package app.core.evaluation;
 
-import java.util.LinkedList;
 import java.util.function.BiFunction;
 
 public class ExpressionProcessor {
@@ -20,6 +19,9 @@ public class ExpressionProcessor {
         } else if(expr.isSubtraction()) {
             Subtract subtract = (Subtract) expr;
             return eval1(subtract.getLeft()) - eval1((subtract.getRight()));
+        } else if (expr.isDivision()) {
+            Division division = (Division) expr;
+            return eval1(division.getTop()) / eval1(division.getBottom());
         }
 
         return -1;

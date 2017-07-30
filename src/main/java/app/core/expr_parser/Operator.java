@@ -10,7 +10,8 @@ import java.util.Map;
 public enum Operator {
 	PLUS("+", 1),
 	MINUS("-", 1),
-	MULTIPLY("*", 10)
+	MULTIPLY("*", 10),
+	DIVISION("/", 10)
 	;
 
 
@@ -33,7 +34,8 @@ public enum Operator {
 	public static Map<String, Operator> representationToOperator = ImmutableMap.of(
 			PLUS.getRepresentation(), PLUS,
 			MINUS.getRepresentation(), MINUS,
-			MULTIPLY.getRepresentation(), MULTIPLY
+			MULTIPLY.getRepresentation(), MULTIPLY,
+			DIVISION.getRepresentation(), DIVISION
 	);
 
 	public static Operator fromToken(Token token) {
@@ -58,6 +60,10 @@ public enum Operator {
 
 	public static boolean isMinus(Token token) {
 		return MINUS.representation.equals(token.getToken());
+	}
+
+	public static boolean isDivision(Token token) {
+		return DIVISION.representation.equals(token.getToken());
 	}
 
 	public static boolean isMultiplication(Token token) {

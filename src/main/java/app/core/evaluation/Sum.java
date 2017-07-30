@@ -37,4 +37,9 @@ public class Sum implements Expr {
 	public boolean isSubtraction() {
 		return false;
 	}
+
+	@Override
+	public boolean isDivision() {
+		return false;
+	}
 }

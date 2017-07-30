@@ -39,4 +39,11 @@ public class CalculationEngineIntegrationTest {
 	public void calculatesCorrectlyBigExression() throws Exception {
 		assertThat(calculationEngine.calculate("5*6 + 3 - 15 - 5*4 + 32")).isEqualTo(30);
 	}
+
+	@Test
+	public void simpleDivisionTest() throws Exception {
+		assertThat(calculationEngine.calculate("8 / 4")).isEqualTo(2);
+		assertThat(calculationEngine.calculate("8 / 4 * 5")).isEqualTo(10);
+		assertThat(calculationEngine.calculate(" 5 * 3 - 10 / 2 + 7")).isEqualTo(17);
+	}
 }

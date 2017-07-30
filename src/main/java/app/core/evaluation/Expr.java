@@ -5,4 +5,5 @@ public interface Expr {
     boolean isSum();
     boolean isMult();
     boolean isSubtraction();
+    boolean isDivision();
 }

@@ -1,9 +1,6 @@
 package app.core.expr_parser;
 
-import app.core.evaluation.Expr;
-import app.core.evaluation.Mult;
-import app.core.evaluation.Subtract;
-import app.core.evaluation.Sum;
+import app.core.evaluation.*;
 import app.core.tokenizer.support.Token;
 import com.google.common.collect.ImmutableMap;
 
@@ -18,6 +15,7 @@ public class OperatorFactory {
 			.put(Operator::isPlus, (ex1, ex2) -> new Sum(ex1, ex2))
 			.put(Operator::isMultiplication, (ex1, ex2) -> new Mult(ex1, ex2))
 			.put(Operator::isMinus, (ex1, ex2) -> new Subtract(ex1, ex2))
+			.put(Operator::isDivision, (ex1, ex2) -> new Division(ex1, ex2))
 			.build();
 
 	public Expr createOperator(Expr operand1, Expr operand2, Token op) {

@@ -1,20 +1,20 @@
 package app.core.evaluation;
 
-public class Subtract implements Expr {
-    private Expr left;
-    private Expr right;
+public class Division implements Expr {
+    private Expr top;
+    private Expr down;
 
-    public Subtract(Expr left, Expr right) {
-        this.left = left;
-        this.right = right;
+    public Division(Expr top, Expr down) {
+        this.top = top;
+        this.down = down;
     }
 
-    public Expr getLeft() {
-        return left;
+    public Expr getTop() {
+        return top;
     }
 
-    public Expr getRight() {
-        return right;
+    public Expr getBottom() {
+        return down;
     }
 
     @Override
@@ -34,11 +34,12 @@ public class Subtract implements Expr {
 
     @Override
     public boolean isSubtraction() {
-        return true;
+        return false;
     }
 
     @Override
     public boolean isDivision() {
-        return false;
+        return true;
     }
+
 }
