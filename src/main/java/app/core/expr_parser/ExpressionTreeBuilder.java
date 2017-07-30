@@ -4,54 +4,48 @@ import app.core.evaluation.Expr;
 import app.core.evaluation.Numb;
 import app.core.evaluation.Sum;
 import app.core.evaluation.TermExpression;
+import app.core.expr_parser.tokens.TokenProcessingStrategy;
+import app.core.expr_parser.tokens.TokenProcessor;
 import app.core.tokenizer.support.Token;
+import com.google.common.collect.ImmutableList;
 
 import java.util.LinkedList;
 import java.util.List;
 
 public class ExpressionTreeBuilder {
-	private OperatorFactory operatorFactory;
+    // TODO: this chain might be configured externally
+    private ImmutableList<TokenProcessor> tokenProcessorsChain = ImmutableList.<TokenProcessor>builder()
+            .add(TokenProcessingStrategy.PROCESS_NUMERIC_TOKEN)
+            .add(TokenProcessingStrategy.PROCESS_OPERATOR)
+            .build();
 
-	public ExpressionTreeBuilder(OperatorFactory operatorFactory) {
-		this.operatorFactory = operatorFactory;
-	}
+    public Expr build(List<Token> tokens) {
+        LinkedList<Expr> valueStack = new LinkedList<Expr>();
+        LinkedList<Token> operatorStack = new LinkedList<Token>();
 
-	public Expr build(List<Token> tokens) {
-		LinkedList<Expr> valueStack = new LinkedList<Expr>();
-		LinkedList<Token> operatorStack = new LinkedList<Token>();
+        for (Token token : tokens) {
+            for (TokenProcessor tokenProcessor : tokenProcessorsChain) {
+                if (tokenProcessor.shouldProcess(token)) {
+                    tokenProcessor.process(token, valueStack, operatorStack);
+                    break;
+                }
+            }
+        }
 
-		for (Token token : tokens) {
-			if (token.isNumber()) {
-				valueStack.push(new Numb(token.getToken()));
-			} else if (token.isLeftParentheses()) {
-				operatorStack.push(token);
-			} else if (token.isRightParentheses()) {
-//				while(operatorStack.peekFirst() instanceof TermExpression) {
-//
-//				}
-			} else if (token.isOperator()) {
-				while(!operatorStack.isEmpty() && Operator.fromToken(operatorStack.peek()).getPrecedence() >= Operator.fromToken(token).getPrecedence()) {
-					Expr ex1 = valueStack.pop();
-					Expr ex2 = valueStack.pop();
+        createTreeFromOperators(valueStack, operatorStack);
 
-					Expr createdOp = operatorFactory.createOperator(ex1, ex2, operatorStack.pop());
-					valueStack.push(createdOp);
-				}
-				operatorStack.push(token);
-			}
-		}
+        return valueStack.pop();
+    }
 
+    private void createTreeFromOperators(LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
+        OperatorFactory operatorFactory = new OperatorFactory();
+        while (!operatorStack.isEmpty()) {
+            Expr ex1 = valueStack.pop();
+            Expr ex2 = valueStack.pop();
 
-		while(!operatorStack.isEmpty()) {
-			Expr ex1 = valueStack.pop();
-			Expr ex2 = valueStack.pop();
-
-			Expr createdOp = operatorFactory.createOperator(ex1, ex2, operatorStack.pop());
-			valueStack.push(createdOp);
-		}
-
-
-		return valueStack.pop();
-	}
+            Expr createdOp = operatorFactory.createOperator(ex1, ex2, operatorStack.pop());
+            valueStack.push(createdOp);
+        }
+    }
 
 }

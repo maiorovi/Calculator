@@ -14,7 +14,7 @@ public class CalculationEngineIntegrationTest {
 
 	@Before
 	public void setUp() throws Exception {
-		calculationEngine = new CalculationEngine(new ExpressionTreeBuilder(new OperatorFactory()),
+		calculationEngine = new CalculationEngine(new ExpressionTreeBuilder(),
 				new ExpressionTokenizer(), new ExpressionProcessor());
 	}
 

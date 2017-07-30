@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 public class ExpressionTreeBuilderTest {
 
-	private ExpressionTreeBuilder treeBuilder = new ExpressionTreeBuilder(new OperatorFactory());
+	private ExpressionTreeBuilder treeBuilder = new ExpressionTreeBuilder();
 
 	@Test
 	public void name() throws Exception {
