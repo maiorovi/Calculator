@@ -7,10 +7,6 @@ import jdk.nashorn.internal.ir.annotations.Immutable;
 import org.apache.commons.lang3.StringUtils;
 
 public final class Token {
-	private static final ImmutableSet<String> OPERATORS = ImmutableSet.<String>builder()
-			.add("+")
-			.add()
-			.build();
 
 	private final String token;
 
