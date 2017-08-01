@@ -13,7 +13,9 @@ public class ExpressionTreeBuilder {
     // TODO: this chain might be configured externally
     private ImmutableList<TokenProcessor> tokenProcessorsChain = ImmutableList.<TokenProcessor>builder()
             .add(TokenProcessingStrategy.PROCESS_NUMERIC_TOKEN)
-            .add(TokenProcessingStrategy.PROCESS_OPERATOR)
+		    .add(TokenProcessingStrategy.PROCESS_LEFT_PARENTHESIS)
+		    .add(TokenProcessingStrategy.PROCESS_RIGHT_PARENTHESIS)
+		    .add(TokenProcessingStrategy.PROCESS_OPERATOR)
             .build();
 
     public Expr build(List<Token> tokens) {

@@ -8,7 +8,8 @@ import java.util.List;
 import java.util.Set;
 
 public class ExpressionTokenizer {
-	private Set<Character> legalOperators = Sets.newHashSet('+', '-', '*', '/');
+	private Set<Character> legalOperators = Sets.newHashSet('+', '-', '*', '/', '(');
+
 	public List<Token> tokenize(String expression) {
 		ArrayList<Token> tokens = new ArrayList();
 		String cleanedExpression = expression.replaceAll("\\s+", "");

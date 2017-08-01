@@ -11,8 +11,7 @@ public enum Operator {
 	PLUS("+", 1),
 	MINUS("-", 1),
 	MULTIPLY("*", 10),
-	DIVISION("/", 10)
-	;
+	DIVISION("/", 10);
 
 
 	private String representation;

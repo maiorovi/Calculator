@@ -32,7 +32,9 @@ public enum TokenProcessingStrategy implements TokenProcessor {
 
         @Override
         public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
-            while(!operatorStack.isEmpty() && Operator.fromToken(operatorStack.peek()).getPrecedence() >= Operator.fromToken(token).getPrecedence()) {
+            while(!operatorStack.isEmpty() &&
+                    !operatorStack.peek().isLeftParentheses() &&
+                    Operator.fromToken(operatorStack.peek()).getPrecedence() >= Operator.fromToken(token).getPrecedence()) {
                 Expr ex2 = valueStack.pop();
                 Expr ex1 = valueStack.pop();
 
@@ -40,6 +42,40 @@ public enum TokenProcessingStrategy implements TokenProcessor {
                 valueStack.push(createdOp);
             }
             operatorStack.push(token);
+        }
+    },
+
+    PROCESS_LEFT_PARENTHESIS {
+        @Override
+        public boolean shouldProcess(Token token) {
+            return token.isLeftParentheses();
+        }
+
+        @Override
+        public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
+            operatorStack.push(token);
+        }
+    },
+
+    PROCESS_RIGHT_PARENTHESIS {
+        private OperatorFactory operatorFactory = new OperatorFactory();
+
+        @Override
+        public boolean shouldProcess(Token token) {
+            return token.isRightParentheses();
+        }
+
+        @Override
+        public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
+            while(!operatorStack.peek().isLeftParentheses()) {
+                Token operator = operatorStack.pop();
+
+                Expr ex2 = valueStack.pop();
+                Expr ex1 = valueStack.pop();
+                valueStack.push(operatorFactory.createOperator(ex1, ex2, operator));
+            }
+
+            operatorStack.pop();
         }
     };
 

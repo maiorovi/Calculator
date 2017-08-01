@@ -54,4 +54,11 @@ public class CalculationEngineIntegrationTest {
 		assertThat(calculationEngine.calculate("8 / 4 * -5")).isEqualTo(-10);
 		assertThat(calculationEngine.calculate(" 5 * 3 - 10 / -2 + 7")).isEqualTo(27);
 	}
+
+	@Test
+	public void canWorkWithParenthesisCorrectly() throws Exception {
+		assertThat(calculationEngine.calculate("5 * (-3) * 5")).isEqualTo(-75);
+		assertThat(calculationEngine.calculate("(1 + 3) * 5")).isEqualTo(20);
+		assertThat(calculationEngine.calculate("5 * (1 + 3) * 5")).isEqualTo(100);
+	}
 }

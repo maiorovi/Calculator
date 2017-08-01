@@ -49,4 +49,11 @@ public final class Token {
 	public boolean isOperator() {
 		return Operator.isOperator(this);
 	}
+
+	@Override
+	public String toString() {
+		return "Token{" +
+				"token='" + token + '\'' +
+				'}';
+	}
 }
