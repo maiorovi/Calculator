@@ -3,6 +3,7 @@ package app.core.tokenizer;
 import app.core.tokenizer.support.Token;
 import com.google.common.collect.Sets;
 
+import java.io.CharConversionException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -15,14 +16,14 @@ public class ExpressionTokenizer {
 		String cleanedExpression = expression.replaceAll("\\s+", "");
 
 		for (int i = 0; i < cleanedExpression.length(); i++) {
-			if (cleanedExpression.charAt(i) == '-' &&
+			if ((cleanedExpression.charAt(i) == '-' || cleanedExpression.charAt(i) == '+') &&
 					Character.isDigit(cleanedExpression.charAt(i+1)) &&
 					(i == 0 || legalOperators.contains(cleanedExpression.charAt(i-1)))) {
-				Token number = parseNumber(cleanedExpression, i+1, true);
+				Token number = parseNumber(cleanedExpression, i+1, String.valueOf(cleanedExpression.charAt(i)));
 				tokens.add(number);
 				i = i + number.length() - 1;
 			} else if (Character.isDigit(cleanedExpression.charAt(i))) {
-				Token number = parseNumber(cleanedExpression, i, false);
+				Token number = parseNumber(cleanedExpression, i);
 				tokens.add(number);
 				i = i + number.length() - 1;
 			} else {
@@ -33,7 +34,7 @@ public class ExpressionTokenizer {
 		return tokens;
 	}
 
-	private Token parseNumber(String expression, int i, boolean isNegative) {
+	private Token parseNumber(String expression, int i, String prefix) {
 		StringBuilder builder = new StringBuilder();
 
 		while(i < expression.length() && Character.isDigit(expression.charAt(i))) {
@@ -41,6 +42,10 @@ public class ExpressionTokenizer {
 			i++;
 		}
 
-		return new Token( isNegative ?  "-" + builder.toString() : builder.toString());
+		return new Token(prefix + builder.toString());
+	}
+
+	private Token parseNumber(String expression, int i) {
+		return parseNumber(expression, i, "");
 	}
 }

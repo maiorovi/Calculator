@@ -60,5 +60,14 @@ public class CalculationEngineIntegrationTest {
 		assertThat(calculationEngine.calculate("5 * (-3) * 5")).isEqualTo(-75);
 		assertThat(calculationEngine.calculate("(1 + 3) * 5")).isEqualTo(20);
 		assertThat(calculationEngine.calculate("5 * (1 + 3) * 5")).isEqualTo(100);
+		assertThat(calculationEngine.calculate("2* (1+3) - 2 * (4 - 2)")).isEqualTo(4);
+		assertThat(calculationEngine.calculate("-2* (1+3) - 2 * (4 - 2)")).isEqualTo(-12);
+		assertThat(calculationEngine.calculate("-2*(-1+3) - 2 * (4 - 2)")).isEqualTo(-8);
+	}
+
+	@Test
+	public void understandPlusCorrectlyWhenItIsUsedAsUnaryOperator() throws Exception {
+		assertThat(calculationEngine.calculate("+5 + 5")).isEqualTo(10);
+		assertThat(calculationEngine.calculate("+ 5 + (+5 + 5)")).isEqualTo(15);
 	}
 }
