@@ -42,4 +42,9 @@ public class Sum implements Expr {
 	public boolean isDivision() {
 		return false;
 	}
+
+	@Override
+	public boolean isNegation() {
+		return false;
+	}
 }

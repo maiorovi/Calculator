@@ -1,22 +1,11 @@
 package app.core.evaluation;
 
-import app.core.evaluation.Expr;
+public class Negation implements Expr {
 
-public class Mult implements Expr {
-	private Expr ex1;
-	private Expr ex2;
+	private Expr expr;
 
-	public Mult(Expr ex1, Expr ex2) {
-		this.ex1 = ex1;
-		this.ex2 = ex2;
-	}
-
-	public Expr getEx1() {
-		return ex1;
-	}
-
-	public Expr getEx2() {
-		return ex2;
+	public Negation(Expr expr) {
+		this.expr = expr;
 	}
 
 	@Override
@@ -31,7 +20,7 @@ public class Mult implements Expr {
 
 	@Override
 	public boolean isMult() {
-		return true;
+		return false;
 	}
 
 	@Override
@@ -44,9 +33,11 @@ public class Mult implements Expr {
 		return false;
 	}
 
-	@Override
 	public boolean isNegation() {
-		return false;
+		return true;
+	}
+
+	public Expr getExpr() {
+		return expr;
 	}
 }
-

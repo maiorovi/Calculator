@@ -13,7 +13,6 @@ public enum Operator {
 	MULTIPLY("*", 10),
 	DIVISION("/", 10);
 
-
 	private String representation;
 	private int precedence;
 

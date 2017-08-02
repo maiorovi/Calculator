@@ -22,6 +22,9 @@ public class ExpressionProcessor {
         } else if (expr.isDivision()) {
             Division division = (Division) expr;
             return eval1(division.getTop()) / eval1(division.getBottom());
+        } else if (expr.isNegation()) {
+            Negation negation = (Negation) expr;
+            return -eval1(negation.getExpr());
         }
 
         return -1;

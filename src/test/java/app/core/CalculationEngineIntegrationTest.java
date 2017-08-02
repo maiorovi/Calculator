@@ -2,7 +2,6 @@ package app.core;
 
 import app.core.evaluation.ExpressionProcessor;
 import app.core.expr_parser.ExpressionTreeBuilder;
-import app.core.expr_parser.OperatorFactory;
 import app.core.tokenizer.ExpressionTokenizer;
 import org.junit.Before;
 import org.junit.Test;
@@ -69,5 +68,10 @@ public class CalculationEngineIntegrationTest {
 	public void understandPlusCorrectlyWhenItIsUsedAsUnaryOperator() throws Exception {
 		assertThat(calculationEngine.calculate("+5 + 5")).isEqualTo(10);
 		assertThat(calculationEngine.calculate("+ 5 + (+5 + 5)")).isEqualTo(15);
+	}
+
+	@Test
+	public void understandsCorrectlyMinuseBeforeParenthesis() throws Exception {
+		assertThat(calculationEngine.calculate("5 + (-(5+3))")).isEqualTo(-3);
 	}
 }

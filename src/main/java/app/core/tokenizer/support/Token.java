@@ -42,6 +42,11 @@ public final class Token {
 		return "(".equals(token);
 	}
 
+	public boolean isNegativeLeftParentheses() {
+		return "-(".equals(token);
+	}
+
+
 	public boolean isRightParentheses() {
 		return ")".equals(token);
 	}

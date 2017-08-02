@@ -2,6 +2,8 @@ package app.core.tokenizer;
 
 import org.junit.Test;
 
+import java.util.function.Predicate;
+
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
 public class ExpressionTokenizerTest {
@@ -41,5 +43,12 @@ public class ExpressionTokenizerTest {
 		assertThat(tokenizer.tokenize("+2 * (3234 + 5) / (-12)"))
 				.extracting("token")
 				.containsExactly("+2", "*", "(", "3234", "+", "5", ")","/","(", "-12", ")");
+	}
+
+	@Test
+	public void tokenizesExpressionWithMinusBeforeInParenthesisCorrectly() throws Exception {
+		assertThat(tokenizer.tokenize("+2 * (-(3234 + 5)) / (-12)"))
+				.extracting("token")
+				.containsExactly("+2", "*", "(", "-(", "3234", "+", "5", ")", ")", "/","(", "-12", ")");
 	}
 }

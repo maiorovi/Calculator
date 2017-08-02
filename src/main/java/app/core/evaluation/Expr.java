@@ -6,4 +6,5 @@ public interface Expr {
     boolean isMult();
     boolean isSubtraction();
     boolean isDivision();
+    boolean isNegation();
 }

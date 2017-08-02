@@ -1,6 +1,7 @@
 package app.core.expr_parser.tokens;
 
 import app.core.evaluation.Expr;
+import app.core.evaluation.Negation;
 import app.core.evaluation.Numb;
 import app.core.expr_parser.Operator;
 import app.core.expr_parser.OperatorFactory;
@@ -33,7 +34,7 @@ public enum TokenProcessingStrategy implements TokenProcessor {
         @Override
         public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
             while(!operatorStack.isEmpty() &&
-                    !operatorStack.peek().isLeftParentheses() &&
+                    !operatorStack.peek().isLeftParentheses() && !operatorStack.peek().isNegativeLeftParentheses() &&
                     Operator.fromToken(operatorStack.peek()).getPrecedence() >= Operator.fromToken(token).getPrecedence()) {
                 Expr ex2 = valueStack.pop();
                 Expr ex1 = valueStack.pop();
@@ -48,7 +49,7 @@ public enum TokenProcessingStrategy implements TokenProcessor {
     PROCESS_LEFT_PARENTHESIS {
         @Override
         public boolean shouldProcess(Token token) {
-            return token.isLeftParentheses();
+            return token.isLeftParentheses() || token.isNegativeLeftParentheses();
         }
 
         @Override
@@ -67,7 +68,7 @@ public enum TokenProcessingStrategy implements TokenProcessor {
 
         @Override
         public void process(Token token, LinkedList<Expr> valueStack, LinkedList<Token> operatorStack) {
-            while(!operatorStack.peek().isLeftParentheses()) {
+            while(!operatorStack.peek().isLeftParentheses() && !operatorStack.peek().isNegativeLeftParentheses()) {
                 Token operator = operatorStack.pop();
 
                 Expr ex2 = valueStack.pop();
@@ -75,9 +76,14 @@ public enum TokenProcessingStrategy implements TokenProcessor {
                 valueStack.push(operatorFactory.createOperator(ex1, ex2, operator));
             }
 
-            operatorStack.pop();
+            Token leftParenthesis = operatorStack.pop();
+
+            if (leftParenthesis.isNegativeLeftParentheses()) {
+                valueStack.push(new Negation(valueStack.pop()));
+            }
         }
-    };
+    }
+    ;
 
 
 }

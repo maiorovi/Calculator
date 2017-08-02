@@ -42,4 +42,9 @@ public class Division implements Expr {
         return true;
     }
 
+    @Override
+    public boolean isNegation() {
+        return false;
+    }
+
 }
