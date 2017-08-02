@@ -12,7 +12,7 @@ public class ExpressionTokenizer {
 	public List<Token> tokenize(String expression) {
 		ArrayList<Token> tokens = new ArrayList();
 		String cleanedExpression = expression.replaceAll("\\s+", "");
-
+		//TODO: have to refactor this
 		for (int i = 0; i < cleanedExpression.length(); i++) {
 			if ((cleanedExpression.charAt(i) == '-' || cleanedExpression.charAt(i) == '+') &&
 					Character.isDigit(cleanedExpression.charAt(i + 1)) &&
