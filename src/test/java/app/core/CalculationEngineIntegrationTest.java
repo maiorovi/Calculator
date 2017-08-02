@@ -73,5 +73,6 @@ public class CalculationEngineIntegrationTest {
 	@Test
 	public void understandsCorrectlyMinuseBeforeParenthesis() throws Exception {
 		assertThat(calculationEngine.calculate("5 + (-(5+3))")).isEqualTo(-3);
+		assertThat(calculationEngine.calculate("5 + (+(5+3))")).isEqualTo(13);
 	}
 }

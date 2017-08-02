@@ -39,7 +39,7 @@ public final class Token {
 	}
 
 	public boolean isLeftParentheses() {
-		return "(".equals(token);
+		return "(".equals(token) || "+(".equals(token);
 	}
 
 	public boolean isNegativeLeftParentheses() {
